@@ -1,0 +1,43 @@
+{
+  "name": "form-builder",
+  "version": "1.0.0",
+  "description": "A plugin to simplify and automate forms in strapi.",
+  "homepage": "https://github.com/abhishek1020N/form-builder#readme",
+  "bugs": {
+    "url": "https://github.com/abhishek1020N/form-builder/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/abhishek1020N/form-builder"
+  },
+  "license": "MIT",
+  "author": "Abhishek Naik",
+  "dependencies": {
+    "@strapi/design-system": "^1.6.3",
+    "@strapi/helper-plugin": "^4.6.0",
+    "@strapi/icons": "^1.6.3",
+    "prop-types": "^15.7.2"
+  },
+  "devDependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^5.3.4",
+    "styled-components": "^5.3.6"
+  },
+  "peerDependencies": {
+    "react": "^17.0.0 || ^18.0.0",
+    "react-dom": "^17.0.0 || ^18.0.0",
+    "react-router-dom": "^5.2.0",
+    "styled-components": "^5.2.1"
+  },
+  "engines": {
+    "node": ">=18.0.0 <=20.x.x",
+    "npm": ">=6.0.0"
+  },
+  "strapi": {
+    "name": "strapi-form-builder",
+    "description": "A plugin to simplify and automate forms in strapi.",
+    "kind": "plugin",
+    "displayName": "Strapi Form Builder"
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "collectionName": "components_form_fields_submissions",
+  "info": {
+    "displayName": "Form Fields Submission",
+    "icon": "check"
+  },
+  "options": {},
+  "attributes": {
+    "label": {
+      "type": "string"
+    },
+    "fieldType": {
+      "type": "string"
+    },
+    "value": {
+      "type": "text"
+    },
+    "files": {
+      "allowedTypes": [
+        "images",
+        "files"
+      ],
+      "type": "media",
+      "multiple": true
+    }
+  }
+}

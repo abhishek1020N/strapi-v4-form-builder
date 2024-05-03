@@ -1,0 +1,47 @@
+{
+  "collectionName": "components_form_fields",
+  "info": {
+    "displayName": "Form Fields",
+    "icon": "bulletList",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "fieldType": {
+      "type": "enumeration",
+      "enum": [
+        "text",
+        "number",
+        "email",
+        "textarea",
+        "select",
+        "upload",
+        "date",
+        "checkbox",
+        "radio",
+        "hidden"
+      ],
+      "required": true,
+      "default": "text"
+    },
+    "required": {
+      "type": "boolean",
+      "default": false
+    },
+    "customErrorMessage": {
+      "type": "string"
+    },
+    "label": {
+      "type": "string"
+    },
+    "placeholder": {
+      "type": "string"
+    },
+    "selectOptions": {
+      "displayName": "Select Options",
+      "type": "component",
+      "repeatable": true,
+      "component": "form.select-options"
+    }
+  }
+}

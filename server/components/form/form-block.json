@@ -1,0 +1,15 @@
+{
+  "collectionName": "components_form_blocks",
+  "info": {
+    "displayName": "Form Block",
+    "icon": "message"
+  },
+  "options": {},
+  "attributes": {
+    "formType": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::strapi-form-builder.form-type"
+    }
+  }
+}

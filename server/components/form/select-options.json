@@ -1,0 +1,17 @@
+{
+  "collectionName": "components_form_select_options",
+  "info": {
+    "displayName": "Select Options",
+    "icon": "apps"
+  },
+  "options": {},
+  "attributes": {
+    "label": {
+      "type": "string",
+      "required": true
+    },
+    "value": {
+      "type": "string"
+    }
+  }
+}
