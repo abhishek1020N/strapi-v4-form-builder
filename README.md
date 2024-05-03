@@ -1,7 +1,7 @@
 <p align="center">
   <img src="./assets/logo.png" width="200" alt="Logo" />
 </p>
-<h1 align="center">Strapi Plugin Events Calendar</h1>
+<h1 align="center">Strapi Plugin Form Builder</h1>
 
 ## How to Install
 
@@ -18,10 +18,6 @@ npm i strapi-form-builder
 ## How to Use
 Collections required will be created in strapi content-manager.
 
-<p align="center">
-  <img src="./assets/form_type.png" width="200" alt="Logo" />
-</p>
+![Alt text](assets/form_type.png)
 
-<p align="center">
-  <img src="./assets/submissions.png" width="200" alt="Logo" />
-</p>
+![Alt text](assets/submissions.png)
