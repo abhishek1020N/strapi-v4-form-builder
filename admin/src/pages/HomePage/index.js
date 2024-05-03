@@ -4,16 +4,27 @@
  *
  */
 
-import React from 'react';
-// import PropTypes from 'prop-types';
-import pluginId from '../../pluginId';
+import React from "react";
+
+import {
+  EmptyStateLayout,
+  BaseHeaderLayout,
+  ContentLayout,
+} from "@strapi/design-system";
+import Illo from "../../components/illo";
 
 const HomePage = () => {
   return (
-    <div>
-      <h1>{pluginId}&apos;s HomePage</h1>
-      <p>Happy coding</p>
-    </div>
+    <>
+      <BaseHeaderLayout
+        title="Form Builder"
+        subtitle="This module is designed to build forms for website through strapi CMS"
+        as="h2"
+      />
+      <ContentLayout>
+        <EmptyStateLayout icon={<Illo />} content="Coming Soon" />
+      </ContentLayout>
+    </>
   );
 };
 

@@ -18,6 +18,8 @@ npm i strapi-form-builder
 ## How to Use
 Collections required will be created in strapi content-manager.
 
+Create dynamic fields with customizations and use it on your the website.
+
 ![Alt text](assets/form_type.png)
 
 ![Alt text](assets/submissions.png)
