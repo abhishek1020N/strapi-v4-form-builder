@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./logo.png" width="200" alt="Logo" />
+  <img src="./assets/logo.png" width="200" alt="Logo" />
 </p>
 <h1 align="center">Strapi Plugin Events Calendar</h1>
 
@@ -8,25 +8,20 @@
 Copy the following code and run from your terminal
 
 ```
-yarn add ab-strapi-calendar
+yarn add strapi-form-builder
 ```
 
 ```
-npm i ab-strapi-calendar
+npm i strapi-form-builder
 ```
 
 ## How to Use
+Collections required will be created in strapi content-manager.
 
-In the schema file of a collection that is required to be mapped to calender view.
+<p align="center">
+  <img src="./assets/form_type.png" width="200" alt="Logo" />
+</p>
 
-```
-"options": {
-      "draftAndPublish": true,
-      "eventCalendarConfig": true
-  },
-```
-
-Open the settings page and select the calendar settings.
-
-Here you can select which collection and fields to use.
-You can also customize the calendar style and options.
+<p align="center">
+  <img src="./assets/submissions.png" width="200" alt="Logo" />
+</p>
