@@ -9,7 +9,7 @@ module.exports = {
   routes: [
     {
       method: "GET",
-      path: "/",
+      path: "/form-email-template",
       handler: "form-email-template.find",
       config: {
         policies: [],
@@ -17,7 +17,7 @@ module.exports = {
     },
     {
       method: "GET",
-      path: "/:id",
+      path: "/form-email-template/:id",
       handler: "form-email-template.findOne",
       config: {
         policies: [],
@@ -25,7 +25,7 @@ module.exports = {
     },
     {
       method: "POST",
-      path: "/",
+      path: "/form-email-template",
       handler: "form-email-template.create",
       config: {
         policies: [],
@@ -33,7 +33,7 @@ module.exports = {
     },
     {
       method: "PUT",
-      path: "/:id",
+      path: "/form-email-template/:id",
       handler: "form-email-template.update",
       config: {
         policies: [],

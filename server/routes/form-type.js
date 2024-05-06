@@ -9,7 +9,7 @@ module.exports = {
   routes: [
     {
       method: "GET",
-      path: "/",
+      path: "/form-type",
       handler: "form-type.find",
       config: {
         policies: [],
@@ -17,7 +17,7 @@ module.exports = {
     },
     {
       method: "GET",
-      path: "/",
+      path: "/form-type/:id",
       handler: "form-type.findOne",
       config: {
         policies: [],
@@ -25,7 +25,7 @@ module.exports = {
     },
     {
       method: "POST",
-      path: "/",
+      path: "/form-type",
       handler: "form-type.create",
       config: {
         policies: [],
@@ -33,7 +33,7 @@ module.exports = {
     },
     {
       method: "PUT",
-      path: "/",
+      path: "/form-type/:id",
       handler: "form-type.update",
       config: {
         policies: [],
