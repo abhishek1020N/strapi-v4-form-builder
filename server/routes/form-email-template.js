@@ -1,9 +1,43 @@
-'use strict';
+"use strict";
 
 /**
  *  router
  */
 
-const { createCoreRouter } = require('@strapi/strapi').factories;
-
-module.exports = createCoreRouter('plugin::strapi-form-builder.form-email-template');
+module.exports = {
+  type: "content-api", // other type available: admin.
+  routes: [
+    {
+      method: "GET",
+      path: "/",
+      handler: "form-email-template.find",
+      config: {
+        policies: [],
+      },
+    },
+    {
+      method: "GET",
+      path: "/:id",
+      handler: "form-email-template.findOne",
+      config: {
+        policies: [],
+      },
+    },
+    {
+      method: "POST",
+      path: "/",
+      handler: "form-email-template.create",
+      config: {
+        policies: [],
+      },
+    },
+    {
+      method: "PUT",
+      path: "/:id",
+      handler: "form-email-template.update",
+      config: {
+        policies: [],
+      },
+    },
+  ],
+};
