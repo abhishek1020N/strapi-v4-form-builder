@@ -1,14 +1,14 @@
 {
-  "name": "strapi-form-builder",
+  "name": "strapi-v4-form-builder",
   "version": "1.0.0",
   "description": "A plugin to simplify and automate forms in strapi.",
-  "homepage": "https://github.com/abhishek1020N/strapi-form-builder#readme",
+  "homepage": "https://github.com/abhishek1020N/strapi-v4-form-builder#readme",
   "bugs": {
-    "url": "https://github.com/abhishek1020N/strapi-form-builder/issues"
+    "url": "https://github.com/abhishek1020N/strapi-v4-form-builder/issues"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/abhishek1020N/strapi-form-builder"
+    "url": "https://github.com/abhishek1020N/strapi-v4-form-builder"
   },
   "license": "MIT",
   "author": "Abhishek Naik",
@@ -35,7 +35,7 @@
     "npm": ">=6.0.0"
   },
   "strapi": {
-    "name": "strapi-form-builder",
+    "name": "strapi-v4-form-builder",
     "description": "A plugin to simplify and automate forms in strapi.",
     "kind": "plugin",
     "displayName": "Strapi Form Builder"

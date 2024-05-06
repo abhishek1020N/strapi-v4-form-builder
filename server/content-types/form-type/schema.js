@@ -48,13 +48,13 @@ module.exports = {
       formSubmissions: {
         type: "relation",
         relation: "oneToMany",
-        target: "plugin::strapi-form-builder.form-submission",
+        target: "plugin::strapi-v4-form-builder.form-submission",
         mappedBy: "formType",
       },
       emailTemplates: {
         type: "relation",
         relation: "manyToMany",
-        target: "plugin::strapi-form-builder.form-email-template",
+        target: "plugin::strapi-v4-form-builder.form-email-template",
         mappedBy: "formTypes",
       },
     },

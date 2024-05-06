@@ -15,7 +15,7 @@ module.exports = {
       formTypes: {
         type: "relation",
         relation: "manyToMany",
-        target: "plugin::strapi-form-builder.form-type",
+        target: "plugin::strapi-v4-form-builder.form-type",
         inversedBy: "emailTemplates",
       },
       name: {

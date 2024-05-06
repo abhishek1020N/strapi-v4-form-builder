@@ -6,4 +6,4 @@
 
 const { createCoreController } = require('@strapi/strapi').factories;
 
-module.exports = createCoreController('plugin::strapi-form-builder.form-type');
+module.exports = createCoreController('plugin::strapi-v4-form-builder.form-type');

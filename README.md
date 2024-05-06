@@ -8,11 +8,11 @@
 Copy the following code and run from your terminal
 
 ```
-yarn add strapi-form-builder
+yarn add strapi-v4-form-builder
 ```
 
 ```
-npm i strapi-form-builder
+npm i strapi-v4-form-builder
 ```
 
 ## How to Use

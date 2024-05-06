@@ -20,7 +20,7 @@ module.exports = {
       formType: {
         type: "relation",
         relation: "manyToOne",
-        target: "plugin::strapi-form-builder.form-type",
+        target: "plugin::strapi-v4-form-builder.form-type",
         inversedBy: "formSubmissions",
       },
       formFieldsSubmission: {
