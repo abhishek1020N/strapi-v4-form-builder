@@ -6,20 +6,17 @@
   },
   "options": {},
   "attributes": {
-    "label": {
-      "type": "string"
-    },
-    "fieldType": {
+    "key": {
       "type": "string"
     },
     "value": {
       "type": "text"
     },
+    "fieldType": {
+      "type": "string"
+    },
     "files": {
-      "allowedTypes": [
-        "images",
-        "files"
-      ],
+      "allowedTypes": ["images", "files"],
       "type": "media",
       "multiple": true
     }

@@ -7,6 +7,9 @@
   },
   "options": {},
   "attributes": {
+    "label": {
+      "type": "string"
+    },
     "fieldType": {
       "type": "enumeration",
       "enum": [
@@ -31,7 +34,7 @@
     "customErrorMessage": {
       "type": "string"
     },
-    "label": {
+    "submissionKey": {
       "type": "string"
     },
     "placeholder": {
