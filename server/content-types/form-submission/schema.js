@@ -34,6 +34,14 @@ module.exports = {
         },
         component: "form.form-fields-submission",
       },
+      jsonSubmission: {
+        pluginOptions: {
+          i18n: {
+            localized: true,
+          },
+        },
+        type: "json",
+      },
     },
   },
 };
