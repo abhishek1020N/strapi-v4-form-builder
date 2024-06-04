@@ -45,6 +45,22 @@
       "type": "component",
       "repeatable": true,
       "component": "form.select-options"
+    },
+    "formOrder": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      },
+      "type": "integer"
+    },
+    "maxFiles": {
+      "type": "integer",
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      }
     }
   }
 }

@@ -19,5 +19,23 @@ module.exports = {
         auth: false,
       },
     },
+    {
+      method: "GET",
+      path: "/get-form-submissions",
+      handler: "form-submission.getFormSubmissions",
+      config: {
+        policies: [],
+        auth: false,
+      },
+    },
+    {
+      method: "POST",
+      path: "/submit-form",
+      handler: "form-submission.submitForm",
+      config: {
+        policies: [],
+        auth: false,
+      },
+    },
   ],
 };

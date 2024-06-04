@@ -23,17 +23,6 @@ module.exports = {
         target: "plugin::strapi-v4-form-builder.form-type",
         inversedBy: "formSubmissions",
       },
-      formFieldsSubmission: {
-        displayName: "Form Fields Submission",
-        type: "component",
-        repeatable: true,
-        pluginOptions: {
-          i18n: {
-            localized: true,
-          },
-        },
-        component: "form.form-fields-submission",
-      },
       jsonSubmission: {
         pluginOptions: {
           i18n: {

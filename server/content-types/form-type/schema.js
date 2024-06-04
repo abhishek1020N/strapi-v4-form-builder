@@ -57,14 +57,6 @@ module.exports = {
         target: "plugin::strapi-v4-form-builder.form-email-template",
         mappedBy: "formTypes",
       },
-      formOrder: {
-        pluginOptions: {
-          i18n: {
-            localized: false,
-          },
-        },
-        type: "integer",
-      },
     },
   },
 };
