@@ -43,7 +43,13 @@ const HomePage = () => {
   }, []);
   const handleChangeSelect = (newTypeUID) => {
     console.log(newTypeUID);
-    //add fetch submissions code
+    (async () => {
+      const {
+        data: { data },
+      } = await get("/strapi-v4-form-builder/form-submissions");
+      console.log(data);
+      setFormTypes(data);
+    })();
   };
   return (
     <>

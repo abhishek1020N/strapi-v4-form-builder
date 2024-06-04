@@ -10,5 +10,14 @@ module.exports = {
         auth: false,
       },
     },
+    {
+      method: "GET",
+      path: "/form-submissions",
+      handler: "form-submission.find",
+      config: {
+        policies: [],
+        auth: false,
+      },
+    },
   ],
 };
