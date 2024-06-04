@@ -25,7 +25,7 @@ module.exports = ({ strapi }) => ({
 
     if (formBlock) {
       try {
-        if (!formBlockComp) {
+        if (formBlockComp) {
           const res = await strapi
             .plugin("content-type-builder")
             .services.components.editComponent(formBlockComp.uid, {
@@ -106,15 +106,6 @@ module.exports = ({ strapi }) => ({
                 icon: formFields.info.icon,
                 attributes: formFields.attributes,
               },
-              components: [
-                {
-                  tmpUID: "form.select-options",
-                  category: "form",
-                  displayName: formSelectOptions.info.displayName,
-                  icon: formSelectOptions.info.icon,
-                  attributes: formSelectOptions.attributes,
-                },
-              ],
             });
           response.push(res);
         } else {

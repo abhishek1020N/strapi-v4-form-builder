@@ -9,7 +9,7 @@ module.exports = {
       description: "",
     },
     options: {
-      draftAndPublish: true,
+      draftAndPublish: false,
     },
     pluginOptions: {
       i18n: {
