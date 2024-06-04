@@ -22,7 +22,6 @@ import {
   Alert,
 } from "@strapi/design-system";
 
-import axios from "../../utils/axiosInstance";
 import { useFetchClient } from "@strapi/helper-plugin";
 
 import Illo from "../../components/illo";
