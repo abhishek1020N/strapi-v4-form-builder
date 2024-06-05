@@ -5,8 +5,8 @@
  */
 
 import React from "react";
-import { FeatherSquare } from "@strapi/icons";
+import { Brush } from "@strapi/icons";
 
-const PluginIcon = () => <FeatherSquare />;
+const PluginIcon = () => <Brush />;
 
 export default PluginIcon;
