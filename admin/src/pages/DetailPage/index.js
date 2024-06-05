@@ -116,7 +116,9 @@ const DetailPage = () => {
             alignItems: "start",
           }}
         >
-          {jsonSubmissions?.map(getFieldComponent)}
+          {jsonSubmissions
+            ?.sort((a, b) => b?.fieldOrder - a?.fieldOrder)
+            ?.map(getFieldComponent)}
         </Grid>
       </ContentLayout>
     </>

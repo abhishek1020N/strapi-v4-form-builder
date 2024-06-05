@@ -55,7 +55,7 @@ const HomePage = () => {
   const formSubmissionParams = qs.stringify({
     pagination: {
       page,
-      pageSize: 1,
+      pageSize: 10,
     },
   });
 
@@ -65,7 +65,7 @@ const HomePage = () => {
     )
   );
   const { data: formSubmissions } = useSWR(
-    formType ? `form-submissions-${formType}` : null,
+    formType ? `form-submissions-${formType}-${formSubmissionParams}` : null,
     () =>
       get(
         `/strapi-v4-form-builder/form-submissions?${formSubmissionParams}`
@@ -105,7 +105,6 @@ const HomePage = () => {
         subtitle="This module is designed to build forms for website through strapi CMS"
         as="h2"
       />
-      {JSON.stringify(query)}
       <ContentLayout>
         <Flex gap="16px">
           <Box flex="1" marginBottom="24px">
