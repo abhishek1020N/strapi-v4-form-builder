@@ -37,5 +37,14 @@ module.exports = {
         auth: false,
       },
     },
+    {
+      method: "GET",
+      path: "/get-all-form-submissions",
+      handler: "form-submission.getAllFormSubmissions",
+      config: {
+        policies: [],
+        auth: false,
+      },
+    },
   ],
 };

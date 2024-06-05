@@ -21,6 +21,16 @@ module.exports = createCoreController(currentModel, ({ strapi }) => ({
     // maintain default functionality for all other request
     return super.find(ctx);
   },
+
+  async getAllFormSubmissions(ctx) {
+    const entity = await strapi.entityService.findMany(currentModel, {
+      ...ctx.query,
+      populate: deepPopulate(currentModel),
+      limit: -1,
+    });
+    return this.transformResponse(entity);
+  },
+
   async submitForm(ctx) {
     try {
       if (ctx.is("multipart")) {

@@ -29,10 +29,11 @@ import {
 import { Eye } from "@strapi/icons";
 import { useFetchClient } from "@strapi/helper-plugin";
 import qs from "qs";
-import React, { useState } from "react";
-import { Link, useLocation, useHistory } from "react-router-dom";
-import pluginId from "strapi-v4-form-builder/admin/src/pluginId";
+import React, { useState, useEffect } from "react";
+import { useLocation, useHistory } from "react-router-dom";
+import pluginId from "../../pluginId";
 import useSWR from "swr";
+import ExportPage from "../../components/ExportPage";
 
 const HomePage = () => {
   const history = useHistory();
@@ -41,7 +42,7 @@ const HomePage = () => {
   const query = qs.parse(search, {
     ignoreQueryPrefix: true,
   });
-
+  const [exportData, setExportData] = useState([]);
   const formType = query?.typeUID ?? null;
   const page = query?.page ?? 1;
 
@@ -98,6 +99,16 @@ const HomePage = () => {
 
   const paginationMeta = formSubmissions?.meta?.pagination;
 
+  useEffect(() => {
+    (async () => {
+      const {
+        data: { data },
+      } = await get(`/strapi-v4-form-builder/get-all-form-submissions`);
+      // console.log("submit-data:", data);
+      setExportData(data);
+    })();
+  }, []);
+
   return (
     <>
       <BaseHeaderLayout
@@ -106,8 +117,12 @@ const HomePage = () => {
         as="h2"
       />
       <ContentLayout>
-        <Flex gap="16px">
-          <Box flex="1" marginBottom="24px">
+        <Flex
+          justifyContent="space-between"
+          alignItems="center"
+          marginBottom="24px"
+        >
+          <Box flex="1" maxWidth="15%" marginRight="16px">
             {formTypes?.length ? (
               <SingleSelect
                 label="Form Type"
@@ -128,7 +143,10 @@ const HomePage = () => {
               "Please configure Form Types"
             )}
           </Box>
+          {/* Export to Excel Button */}
+          {formType ? <ExportPage data={exportData} /> : null}
         </Flex>
+
         {formType ? (
           <Box background="neutral100">
             <Table colCount={10} rowCount={6}>
