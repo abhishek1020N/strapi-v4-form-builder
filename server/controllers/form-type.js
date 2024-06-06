@@ -19,9 +19,8 @@ module.exports = createCoreController(currentModel, ({ strapi }) => ({
       entity[0]?.formCSFRTokenExpiry > 0
         ? entity[0]?.formCSFRTokenExpiry
         : null;
-    entity.csrfToken = generateToken(expiry);
     const response = this.transformResponse(entity);
-    response.meta.csrfToken = generateToken();
+    response.meta.csrfToken = generateToken(expiry);
     return response;
   },
 }));

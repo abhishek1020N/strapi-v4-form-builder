@@ -17,6 +17,14 @@ module.exports = {
     },
     {
       method: "GET",
+      path: "/get-form-type-csrf-token",
+      handler: "form-type.getFormTypeWithCSRFToken",
+      config: {
+        policies: [],
+      },
+    },
+    {
+      method: "GET",
       path: "/form-type/:id",
       handler: "form-type.findOne",
       config: {
