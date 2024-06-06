@@ -6,7 +6,7 @@ const secretKey = process.env.CSR_SECRET_KEY;
 // Generate the token
 const generateToken = (expiresIn) => {
   const csrfToken = csrfTokens.create(secretKey);
-  const expiresIn = expiresIn ?? "1d";
+  expiresIn = expiresIn ?? "1d";
 
   // Create a JWT that includes the CSRF token and expiration time
   const jwtToken = jwt.sign({ csrfToken }, secretKey, { expiresIn });

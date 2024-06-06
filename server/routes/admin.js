@@ -29,15 +29,6 @@ module.exports = {
       },
     },
     {
-      method: "POST",
-      path: "/submit-form",
-      handler: "form-submission.submitForm",
-      config: {
-        policies: [],
-        auth: false,
-      },
-    },
-    {
       method: "GET",
       path: "/get-all-form-submissions",
       handler: "form-submission.getAllFormSubmissions",
