@@ -23,3 +23,5 @@ Create dynamic fields with customizations and use it on your the website.
 ![Alt text](assets/form_type.png)
 
 ![Alt text](assets/submissions.png)
+
+![Alt text](assets/submissions-detail.png)
