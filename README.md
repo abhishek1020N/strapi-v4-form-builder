@@ -29,7 +29,7 @@ npm i strapi-v4-form-builder
 - Export data directly from the Content Manager
 - Based on each Form-Type, all of its corresponding submissions can be exported to an excel file (.xlsx)
 
-![Alt text](assets/form_type.png)
+![Alt text](assets/form_type_create.png)
 
 ![Alt text](assets/submissions.png)
 
