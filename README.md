@@ -15,10 +15,19 @@ yarn add strapi-v4-form-builder
 npm i strapi-v4-form-builder
 ```
 
-## How to Use
-Collections required will be created in strapi content-manager.
+## Features Default
 
-Create dynamic fields with customizations and use it on your the website.
+### Form Builder
+
+- Create custom form fields from the Content Manager
+- Use the Form-Type collection to defince the form fields and form structure
+- Submissions can be viewed from the plugin's homepage.
+- Based on each Form-Type its corresponding submissions can be viewed  
+
+### Export
+
+- Export data directly from the Content Manager
+- Based on each Form-Type, all of its corresponding submissions can be exported to an excel file (.xlsx)
 
 ![Alt text](assets/form_type.png)
 
