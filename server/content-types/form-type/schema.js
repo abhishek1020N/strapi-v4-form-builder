@@ -45,6 +45,9 @@ module.exports = {
         },
         component: "form.form-fields",
       },
+      formCSFRTokenExpiry: {
+        type: "integer",
+      },
       formSubmissions: {
         type: "relation",
         relation: "oneToMany",

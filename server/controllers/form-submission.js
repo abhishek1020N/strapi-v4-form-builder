@@ -55,6 +55,8 @@ module.exports = createCoreController(currentModel, ({ strapi }) => ({
         return await strapi.entityService.create(currentModel, {
           data: submitData,
         });
+      } else{
+        return super.create(ctx);
       }
     } catch (error) {
       console.log(error);

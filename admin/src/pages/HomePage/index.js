@@ -54,6 +54,10 @@ const HomePage = () => {
     },
   });
   const formSubmissionParams = qs.stringify({
+    filters: {
+      formType: { formID: { $eq: formType } },
+    },
+    populate: "*",
     pagination: {
       page,
       pageSize: 10,
@@ -69,7 +73,7 @@ const HomePage = () => {
     formType ? `form-submissions-${formType}-${formSubmissionParams}` : null,
     () =>
       get(
-        `/strapi-v4-form-builder/form-submissions?${formSubmissionParams}`
+        `/strapi-v4-form-builder/get-form-submissions?${formSubmissionParams}`
       ).then((res) => res?.data)
   );
 
