@@ -36,4 +36,4 @@ npm i strapi-v4-form-builder
 ![Alt text](assets/submissions-detail.png)
 
 
-<a class="" href="https://www.tentwenty.me/"> <img class="dark-logo" src="./assets/site-logo.svg" alt="Tentwenty.me"><img class="light-logo" src="./assets/site-logo-white.svg" alt="Tentwenty.me"></a>
+<a class="" href="https://www.tentwenty.me/"> <img class="dark-logo" src="https://www.tentwenty.me/application/themes/tentwenty/images/site-logo.svg" alt="Tentwenty.me"></a>
