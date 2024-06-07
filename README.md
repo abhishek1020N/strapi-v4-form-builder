@@ -36,4 +36,6 @@ npm i strapi-v4-form-builder
 ![Alt text](assets/submissions-detail.png)
 
 
-<a align="center" href="https://www.tentwenty.me/"> <img width="200" src="https://www.tentwenty.me/application/themes/tentwenty/images/site-logo.svg" alt="Tentwenty.me"></a>
+<div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+  <img width="100" src="/assets/company-logo.png" alt="Tentwenty.me">
+</div>
