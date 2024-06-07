@@ -36,6 +36,6 @@ npm i strapi-v4-form-builder
 ![Alt text](assets/submissions-detail.png)
 
 
-<div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+<p align="center">
   <img width="100" src="/assets/tentwenty-logo.jpg" alt="Tentwenty.me">
 </div>
