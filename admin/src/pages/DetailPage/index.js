@@ -8,28 +8,21 @@ import {
   CarouselInput,
   CarouselSlide,
   CarouselImage,
-  CarouselActions,
   Grid,
   GridItem,
   BaseHeaderLayout,
-  Box,
   ContentLayout,
-  Flex,
-  SingleSelect,
-  SingleSelectOption,
-  Table,
-  Tbody,
-  Td,
-  Th,
-  Thead,
-  Tr,
   Typography,
+  IconButton,
 } from "@strapi/design-system";
-import { useFetchClient } from "@strapi/helper-plugin";
+import { File, FilePdf, Download as DownloadIcon } from "@strapi/icons";
+import { useFetchClient, getFileExtension } from "@strapi/helper-plugin";
 import qs from "qs";
 import React, { useState } from "react";
-import { useLocation, useParams, Redirect } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import useSWR from "swr";
+import { downloadFile } from "../../utils/downloadFile";
+import { createAssetUrl } from "../../utils/createAssetUrl";
 
 const DetailPage = () => {
   const urlParams = useParams();
@@ -125,8 +118,19 @@ const DetailPage = () => {
   );
 };
 
+const AssetType = {
+  Video: "video",
+  Image: "image",
+  Document: "doc",
+  Audio: "audio",
+};
+
 const UploadComponent = ({ field = [] }) => {
-  const files = field?.files ?? [];
+  const files =
+    field?.files?.map((file) => ({
+      ...file,
+      url: createAssetUrl(file, true), // Process the file URL using your utility function
+    })) || [];
   const [selectedIndex, setSelectedIndex] = useState(0);
 
   const handleNext = () => {
@@ -139,7 +143,7 @@ const UploadComponent = ({ field = [] }) => {
 
   return (
     <CarouselInput
-      label={`${field?.label} - (${selectedIndex + 1}/3)`}
+      label={`${field?.label} - (${selectedIndex + 1}/${files?.length})`}
       selectedSlide={selectedIndex}
       previousLabel="Previous slide"
       nextLabel="Next slide"
@@ -151,16 +155,20 @@ const UploadComponent = ({ field = [] }) => {
           key={file?.id}
           label={`${index + 1} of ${files?.length} slides`}
         >
-          <CarouselImage src={file?.url} alt={file?.name} />
+          {file.mime.includes(AssetType.Image) ? (
+            <CarouselImage src={file?.url} alt={file?.name} />
+          ) : getFileExtension(file.ext) == "pdf" ? (
+            <FilePdf aria-label={file?.name} />
+          ) : (
+            <File aria-label={file?.name} />
+          )}
+          <IconButton
+            label="Download"
+            icon={<DownloadIcon />}
+            onClick={() => downloadFile(file?.url, file.name)}
+          />
         </CarouselSlide>
       ))}
-
-      <CarouselSlide label="2 of 3 slides">
-        <CarouselImage src={"/second.png"} alt="second" />
-      </CarouselSlide>
-      <CarouselSlide label="3 of 3 slides">
-        <CarouselImage src={"/third.png"} alt="third" />
-      </CarouselSlide>
     </CarouselInput>
   );
 };
