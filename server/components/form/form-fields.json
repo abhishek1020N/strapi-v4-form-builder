@@ -22,7 +22,9 @@
         "date",
         "checkbox",
         "radio",
-        "hidden"
+        "hidden",
+        "phone",
+        "rating"
       ],
       "required": true,
       "default": "text"
