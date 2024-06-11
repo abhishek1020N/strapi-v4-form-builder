@@ -15,6 +15,21 @@ yarn add strapi-v4-form-builder
 npm i strapi-v4-form-builder
 ```
 
+ - Add a new environment varaible CSR_SECRET_KEY in your strapi project. This will be a random hash string.
+ - .env file should be something like below with `CSR_SECRET_KEY` added.
+```
+# Database
+DATABASE_CLIENT=postgres
+DATABASE_HOST=localhost
+DATABASE_PORT=5432
+DATABASE_NAME=imiDev
+DATABASE_USERNAME=postgres
+DATABASE_PASSWORD=postgres
+DATABASE_SSL=false
+
+CSR_SECRET_KEY="something#secret+123"
+```
+
 ## Features Default
 
 ### Form Builder
@@ -22,7 +37,8 @@ npm i strapi-v4-form-builder
 - Create custom form fields from the Content Manager
 - Use the Form-Type collection to defince the form fields and form structure
 - Submissions can be viewed from the plugin's homepage.
-- Based on each Form-Type its corresponding submissions can be viewed  
+- Based on each Form-Type its corresponding submissions can be viewed.
+- Submitted attachments can be downloaded by CMS admin.
 
 ### Export
 
