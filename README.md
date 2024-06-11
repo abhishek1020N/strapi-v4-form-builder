@@ -22,7 +22,7 @@ npm i strapi-v4-form-builder
 DATABASE_CLIENT=postgres
 DATABASE_HOST=localhost
 DATABASE_PORT=5432
-DATABASE_NAME=imiDev
+DATABASE_NAME=dbName
 DATABASE_USERNAME=postgres
 DATABASE_PASSWORD=postgres
 DATABASE_SSL=false
