@@ -20,11 +20,14 @@
         "select",
         "upload",
         "date",
+        "datetime",
+        "time",
         "checkbox",
         "radio",
         "hidden",
         "phone",
-        "rating"
+        "rating",
+        "multiselect"
       ],
       "required": true,
       "default": "text"
