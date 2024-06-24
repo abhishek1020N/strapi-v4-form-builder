@@ -34,6 +34,14 @@ module.exports = {
         type: "uid",
         targetField: "formName",
       },
+      formDescription: {
+        pluginOptions: {
+          i18n: {
+            localized: true,
+          },
+        },
+        type: "text",
+      },
       formFields: {
         displayName: "Form Fields",
         type: "component",
