@@ -42,14 +42,11 @@
     "submissionKey": {
       "type": "string"
     },
-    "placeholder": {
+    "parentSubmissionKey": {
       "type": "string"
     },
-    "selectOptions": {
-      "displayName": "Select Options",
-      "type": "component",
-      "repeatable": true,
-      "component": "form.select-options"
+    "placeholder": {
+      "type": "string"
     },
     "formOrder": {
       "pluginOptions": {
@@ -66,6 +63,12 @@
           "localized": false
         }
       }
+    },
+    "selectOptions": {
+      "displayName": "Select Options",
+      "type": "component",
+      "repeatable": true,
+      "component": "form.select-options"
     }
   }
 }
