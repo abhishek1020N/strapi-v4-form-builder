@@ -53,6 +53,22 @@ module.exports = {
         },
         component: "form.form-fields",
       },
+      formSubmitMessage: {
+        pluginOptions: {
+          i18n: {
+            localized: true,
+          },
+        },
+        type: "text",
+      },
+      formSubmitDescription: {
+        pluginOptions: {
+          i18n: {
+            localized: true,
+          },
+        },
+        type: "text",
+      },
       formCSFRTokenExpiry: {
         type: "integer",
       },
