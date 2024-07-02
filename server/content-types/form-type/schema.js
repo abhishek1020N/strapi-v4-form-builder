@@ -34,14 +34,6 @@ module.exports = {
         type: "uid",
         targetField: "formName",
       },
-      formDescription: {
-        pluginOptions: {
-          i18n: {
-            localized: true,
-          },
-        },
-        type: "text",
-      },
       formFields: {
         displayName: "Form Fields",
         type: "component",
@@ -52,22 +44,6 @@ module.exports = {
           },
         },
         component: "form.form-fields",
-      },
-      formSubmitMessage: {
-        pluginOptions: {
-          i18n: {
-            localized: true,
-          },
-        },
-        type: "text",
-      },
-      formSubmitDescription: {
-        pluginOptions: {
-          i18n: {
-            localized: true,
-          },
-        },
-        type: "text",
       },
       formCSFRTokenExpiry: {
         type: "integer",
@@ -83,6 +59,20 @@ module.exports = {
         relation: "manyToMany",
         target: "plugin::strapi-v4-form-builder.form-email-template",
         mappedBy: "formTypes",
+      },
+      formDescription: {
+        pluginOptions: {
+          i18n: {
+            localized: true,
+          },
+        },
+        type: "text",
+      },
+      formRedirect: {
+        type: "relation",
+        relation: "oneToOne",
+        target: "plugin::strapi-v4-form-builder.form-redirect",
+        mappedBy: "formType",
       },
     },
   },

@@ -4,6 +4,7 @@ const formBlock = require("../components/form/form-block.json");
 const formSubmission = require("../components/form/form-fields-submission.json");
 const formFields = require("../components/form/form-fields.json");
 const formSelectOptions = require("../components/form/select-options.json");
+const formRedirectBlock = require("../components/form/form-redirect-buttons.json");
 
 module.exports = ({ strapi }) => ({
   getWelcomeMessage() {
@@ -135,6 +136,41 @@ module.exports = ({ strapi }) => ({
       }
     }
 
+    const formRedirectComp = await this.getComponent(
+      "form.form-redirect-buttons"
+    );
+    if (formRedirectBlock) {
+      try {
+        if (formRedirectComp) {
+          const res = await strapi
+            .plugin("content-type-builder")
+            .services.components.editComponent(formRedirectComp.uid, {
+              component: {
+                category: "form",
+                displayName: formRedirectBlock.info.displayName,
+                icon: formRedirectBlock.info.icon,
+                attributes: formRedirectBlock.attributes,
+              },
+            });
+          response.push(res);
+        } else {
+          const res = await strapi
+            .plugin("content-type-builder")
+            .services.components.createComponent({
+              component: {
+                category: "form",
+                displayName: formRedirectBlock.info.displayName,
+                icon: formRedirectBlock.info.icon,
+                attributes: formRedirectBlock.attributes,
+              },
+            });
+
+          response.push(res);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    }
     if (response?.length > 0) return response;
     else return null;
   },

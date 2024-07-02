@@ -1,0 +1,28 @@
+{
+  "collectionName": "components_form_redirect_buttons",
+  "info": {
+    "displayName": "Redirect Buttons",
+    "icon": "bulletList",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "buttonText": {
+      "type": "string"
+    },
+    "buttonExternalUrl": {
+      "type": "string"
+    },
+    "buttonRoute": {
+      "type": "string"
+    },
+    "placeholder": {
+      "type": "string"
+    },
+    "icon": {
+      "allowedTypes": ["images", "files"],
+      "type": "media",
+      "multiple": false
+    }
+  }
+}

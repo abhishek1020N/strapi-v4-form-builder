@@ -43,9 +43,13 @@ module.exports = createCoreController(currentModel, ({ strapi }) => ({
           formTypeModel,
           submitData.formType,
           {
-            populate: { formFields: { populate: { selectOptions: true } } },
+            populate: {
+              emailTemplates: true,
+              formFields: { populate: { selectOptions: true } },
+            },
           }
         );
+        let submitterEmail = [];
         for (const dataKey of submitData?.jsonSubmission) {
           const formTypeField = formType?.formFields?.find(
             (f) => f.submissionKey == dataKey.key
@@ -70,15 +74,68 @@ module.exports = createCoreController(currentModel, ({ strapi }) => ({
           dataKey.formOrder = formTypeField?.formOrder ?? 0;
           dataKey.maxFiles = formTypeField?.maxFiles;
           dataKey.files = fileArr;
+          if (formTypeField?.fieldType === "email") {
+            submitterEmail.push(dataKey.value);
+          }
         }
-        return await strapi.entityService.create(currentModel, {
+        const res = await strapi.entityService.create(currentModel, {
           data: submitData,
         });
+        if (res?.id) {
+          await strapi
+            .service(currentModel)
+            .sendEmail(formType, res, submitterEmail, ctx);
+        }
+        return res;
       } else {
         return super.create(ctx);
       }
     } catch (error) {
       console.log(error);
+    }
+  },
+
+  async sendEmail(formType, data, submitterEmail = [], ctx = {}) {
+    try {
+      for (const mailTemplate of formType?.emailTemplates) {
+        const [emailTemplate] = await strapi.entityService.findMany(
+          "api::email-template.email-template",
+          {
+            filters: { id: mailTemplate, sendToUser: true },
+            locale: ctx.locale,
+          }
+        );
+
+        if (emailTemplate?.id > 0) {
+          const htmlEmail = emailTemplate?.content;
+
+          const template = Handlebars.compile(htmlEmail);
+
+          let emailTemplateData = template(data);
+          let recieverEmails = submitterEmail;
+          if (emailTemplate?.recipientEmail) {
+            recieverEmails = emailTemplate?.recipientEmail?.split(",");
+          }
+
+          for (const adminEmail of recieverEmails) {
+            const emailObject = {
+              to: adminEmail,
+              subject: emailTemplate.subject,
+              html: emailTemplateData,
+            };
+            //for mandrill
+            if (emailTemplate?.senderEmail)
+              emailObject.from_email = emailTemplate?.senderEmail;
+            console.log(`EMAIL_OBJECT:`, emailObject);
+            strapi.plugins["email"].services.email.send(emailObject);
+            console.log(`EMAIL_SENT: subject=${emailObject?.subject}`);
+          }
+        }
+      }
+      return true;
+    } catch (error) {
+      console.log("sendEmail-Error:", error);
+      return { error: error };
     }
   },
 }));

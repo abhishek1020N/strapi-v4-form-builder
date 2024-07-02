@@ -1,6 +1,6 @@
 {
   "name": "strapi-v4-form-builder",
-  "version": "0.4.7-2",
+  "version": "0.4.7-3",
   "description": "A plugin to simplify and automate forms in strapi.",
   "homepage": "https://github.com/abhishek1020N/strapi-v4-form-builder#readme",
   "bugs": {
@@ -17,6 +17,7 @@
     "@strapi/helper-plugin": "^4.6.0",
     "@strapi/icons": "^1.6.3",
     "csrf": "^3.1.0",
+    "handlebars": "^4.7.8",
     "jsonwebtoken": "^9.0.2",
     "prop-types": "^15.7.2",
     "swr": "^2.2.5"
