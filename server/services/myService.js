@@ -109,18 +109,19 @@ module.exports = ({ strapi }) => ({
               },
             });
           response.push(res);
-        } else if (selectOptionsComp) {
-          const res = await strapi
-            .plugin("content-type-builder")
-            .services.components.editComponent(selectOptionsComp.uid, {
-              component: {
-                category: "form",
-                displayName: selectOptionsComp.info.displayName,
-                icon: selectOptionsComp.info.icon,
-                attributes: selectOptionsComp.attributes,
-              },
-            });
-          response.push(res);
+          if (selectOptionsComp) {
+            const res = await strapi
+              .plugin("content-type-builder")
+              .services.components.editComponent(selectOptionsComp.uid, {
+                component: {
+                  category: "form",
+                  displayName: formSelectOptions.info.displayName,
+                  icon: formSelectOptions.info.icon,
+                  attributes: formSelectOptions.attributes,
+                },
+              });
+            response.push(res);
+          }
         } else {
           const res = await strapi
             .plugin("content-type-builder")
