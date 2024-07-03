@@ -35,10 +35,17 @@ module.exports = createCoreController(currentModel, ({ strapi }) => ({
 
   async submitForm(ctx) {
     try {
+      let submitData = {};
+      let uploadedFiles = [];
+      const uploadService = strapi.plugin("upload").service("upload");
+
       if (ctx.is("multipart")) {
         const { data, files } = parseMultipartData(ctx);
-        const uploadService = strapi.plugin("upload").service("upload");
-        let submitData = data;
+        uploadedFiles = files;
+        submitData = data;
+      }else{
+        submitData = ctx.request.body?.data;
+      } 
         let formType = await strapi.entityService.findOne(
           formTypeModel,
           submitData.formType,
@@ -87,9 +94,6 @@ module.exports = createCoreController(currentModel, ({ strapi }) => ({
             .sendEmail(formType, res, submitterEmail, ctx);
         }
         return res;
-      } else {
-        return super.create(ctx);
-      }
     } catch (error) {
       console.log(error);
     }
@@ -99,7 +103,7 @@ module.exports = createCoreController(currentModel, ({ strapi }) => ({
     try {
       for (const mailTemplate of formType?.emailTemplates) {
         const [emailTemplate] = await strapi.entityService.findMany(
-          "api::email-template.email-template",
+          "plugin::strapi-v4-form-builder.form-email-template",
           {
             filters: { id: mailTemplate, sendToUser: true },
             locale: ctx.locale,
