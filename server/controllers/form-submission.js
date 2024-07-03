@@ -84,6 +84,8 @@ module.exports = createCoreController(currentModel, ({ strapi }) => ({
         if (formTypeField?.fieldType === "email") {
           submitterEmail.push(dataKey.value);
         }
+
+        //populate data for admin email
         if (formTypeField.sendInAdminEmail) {
           adminEmailFields.push({
             label: dataKey.label,
@@ -121,10 +123,11 @@ module.exports = createCoreController(currentModel, ({ strapi }) => ({
         );
 
         if (emailTemplate?.id > 0) {
-          const htmlEmailContent = emailTemplate?.content;
+          let htmlEmailContent = emailTemplate?.content;
           // const template = Handlebars.compile(htmlEmail);
           // let emailTemplateData = template(data);
           let recieverEmails = clientEmails;
+          //if template type is for admin and recipient email exist
           if (emailTemplate?.isAdmin && emailTemplate?.recipientEmail) {
             recieverEmails = emailTemplate?.recipientEmail?.split(",");
             let htmlContent = "";
@@ -143,7 +146,6 @@ module.exports = createCoreController(currentModel, ({ strapi }) => ({
               subject: emailTemplate.subject,
               html: htmlEmailContent,
             };
-            //for mandrill
             if (emailTemplate?.senderEmail)
               emailObject.from_email = emailTemplate?.senderEmail;
             console.log(`EMAIL_OBJECT:`, emailObject);
