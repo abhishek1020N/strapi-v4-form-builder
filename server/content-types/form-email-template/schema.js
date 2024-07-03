@@ -42,6 +42,14 @@ module.exports = {
         },
         type: "string",
       },
+      isAdmin: {
+        pluginOptions: {
+          i18n: {
+            localized: false,
+          },
+        },
+        type: "boolean",
+      },
       recipientEmail: {
         pluginOptions: {
           i18n: {

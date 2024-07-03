@@ -69,6 +69,11 @@ module.exports = {
         type: "text",
       },
       formRedirect: {
+        pluginOptions: {
+          i18n: {
+            localized: true,
+          },
+        },
         type: "relation",
         relation: "oneToOne",
         target: "plugin::strapi-v4-form-builder.form-redirect",

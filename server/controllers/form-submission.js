@@ -43,63 +43,62 @@ module.exports = createCoreController(currentModel, ({ strapi }) => ({
         const { data, files } = parseMultipartData(ctx);
         uploadedFiles = files;
         submitData = data;
-      }else{
+      } else {
         submitData = ctx.request.body?.data;
-      } 
-        let formType = await strapi.entityService.findOne(
-          formTypeModel,
-          submitData.formType,
-          {
-            populate: {
-              emailTemplates: true,
-              formFields: { populate: { selectOptions: true } },
-            },
-          }
+      }
+      let formType = await strapi.entityService.findOne(
+        formTypeModel,
+        submitData.formType,
+        {
+          populate: {
+            emailTemplates: true,
+            formFields: { populate: { selectOptions: true } },
+          },
+        }
+      );
+      let submitterEmail = [];
+      for (const dataKey of submitData?.jsonSubmission) {
+        const formTypeField = formType?.formFields?.find(
+          (f) => f.submissionKey == dataKey.key
         );
-        let submitterEmail = [];
-        for (const dataKey of submitData?.jsonSubmission) {
-          const formTypeField = formType?.formFields?.find(
-            (f) => f.submissionKey == dataKey.key
-          );
-          let fileList = files[dataKey.key];
-          let fileArr = [];
-          if (fileList) {
-            fileList = fileList?.size > 0 ? [fileList] : fileList;
-            for (const file of fileList) {
-              const [uploadedFile] = await uploadService.upload({
-                data: {}, // additional data to pass
-                files: [file], // the actual file(s)
-              });
-              fileArr.push(uploadedFile);
-            }
-          }
-          dataKey.label = formTypeField?.label ?? "";
-          dataKey.fieldType = formTypeField?.fieldType ?? "";
-          dataKey.parentSubmissionKey =
-            formTypeField?.parentSubmissionKey ?? "";
-          dataKey.required = formTypeField?.required ?? false;
-          dataKey.formOrder = formTypeField?.formOrder ?? 0;
-          dataKey.maxFiles = formTypeField?.maxFiles;
-          dataKey.files = fileArr;
-          if (formTypeField?.fieldType === "email") {
-            submitterEmail.push(dataKey.value);
+        let fileList = uploadedFiles[dataKey.key];
+        let fileArr = [];
+        if (fileList) {
+          fileList = fileList?.size > 0 ? [fileList] : fileList;
+          for (const file of fileList) {
+            const [uploadedFile] = await uploadService.upload({
+              data: {}, // additional data to pass
+              files: [file], // the actual file(s)
+            });
+            fileArr.push(uploadedFile);
           }
         }
-        const res = await strapi.entityService.create(currentModel, {
-          data: submitData,
-        });
-        if (res?.id) {
-          await strapi
-            .service(currentModel)
-            .sendEmail(formType, res, submitterEmail, ctx);
+        dataKey.label = formTypeField?.label ?? "";
+        dataKey.fieldType = formTypeField?.fieldType ?? "";
+        dataKey.parentSubmissionKey = formTypeField?.parentSubmissionKey ?? "";
+        dataKey.required = formTypeField?.required ?? false;
+        dataKey.formOrder = formTypeField?.formOrder ?? 0;
+        dataKey.maxFiles = formTypeField?.maxFiles;
+        dataKey.files = fileArr;
+        if (formTypeField?.fieldType === "email") {
+          submitterEmail.push(dataKey.value);
         }
-        return res;
+      }
+      const res = await strapi.entityService.create(currentModel, {
+        data: submitData,
+      });
+      if (res?.id) {
+        await strapi
+          .service(currentModel)
+          .sendEmail(formType, res, submitterEmail, ctx);
+      }
+      return res;
     } catch (error) {
       console.log(error);
     }
   },
 
-  async sendEmail(formType, data, submitterEmail = [], ctx = {}) {
+  async sendEmail(formType, data, clientEmails = [], ctx = {}) {
     try {
       for (const mailTemplate of formType?.emailTemplates) {
         const [emailTemplate] = await strapi.entityService.findMany(
@@ -116,14 +115,14 @@ module.exports = createCoreController(currentModel, ({ strapi }) => ({
           const template = Handlebars.compile(htmlEmail);
 
           let emailTemplateData = template(data);
-          let recieverEmails = submitterEmail;
-          if (emailTemplate?.recipientEmail) {
+          let recieverEmails = clientEmails;
+          if (emailTemplate?.isAdmin && emailTemplate?.recipientEmail) {
             recieverEmails = emailTemplate?.recipientEmail?.split(",");
           }
 
-          for (const adminEmail of recieverEmails) {
+          for (const toEmail of recieverEmails) {
             const emailObject = {
-              to: adminEmail,
+              to: toEmail,
               subject: emailTemplate.subject,
               html: emailTemplateData,
             };

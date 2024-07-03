@@ -12,6 +12,10 @@
     },
     "value": {
       "type": "string"
+    },
+    "isDefault": {
+      "type": "boolean",
+      "default": false
     }
   }
 }
