@@ -94,7 +94,7 @@ module.exports = ({ strapi }) => ({
     }
 
     const formFieldsComp = await this.getComponent("form.form-fields");
-
+    const selectOptionsComp = await this.getComponent("form.select-options");
     if (formSelectOptions && formFields) {
       try {
         if (formFieldsComp) {
@@ -106,6 +106,18 @@ module.exports = ({ strapi }) => ({
                 displayName: formFields.info.displayName,
                 icon: formFields.info.icon,
                 attributes: formFields.attributes,
+              },
+            });
+          response.push(res);
+        } else if (selectOptionsComp) {
+          const res = await strapi
+            .plugin("content-type-builder")
+            .services.components.editComponent(selectOptionsComp.uid, {
+              component: {
+                category: "form",
+                displayName: selectOptionsComp.info.displayName,
+                icon: selectOptionsComp.info.icon,
+                attributes: selectOptionsComp.attributes,
               },
             });
           response.push(res);
