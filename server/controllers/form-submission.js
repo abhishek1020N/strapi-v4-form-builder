@@ -39,7 +39,7 @@ module.exports = createCoreController(currentModel, ({ strapi }) => ({
       let submitData = {};
       let uploadedFiles = [];
       const uploadService = strapi.plugin("upload").service("upload");
-
+      let adminEmailFields = [];
       if (ctx.is("multipart")) {
         const { data, files } = parseMultipartData(ctx);
         uploadedFiles = files;
@@ -84,14 +84,24 @@ module.exports = createCoreController(currentModel, ({ strapi }) => ({
         if (formTypeField?.fieldType === "email") {
           submitterEmail.push(dataKey.value);
         }
+        if (formTypeField.sendInAdminEmail) {
+          adminEmailFields.push({
+            label: dataKey.label,
+            value: dataKey.value,
+          });
+        }
       }
       const res = await strapi.entityService.create(currentModel, {
         data: submitData,
       });
       if (res?.id) {
+        adminEmailFields.push({
+          label: "Submission Id",
+          value: res?.id,
+        });
         await strapi
           .controller(currentModel)
-          .sendEmail(formType, res, submitterEmail, ctx);
+          .sendEmail(ctx, formType, adminEmailFields, submitterEmail);
       }
       return res;
     } catch (error) {
@@ -99,7 +109,7 @@ module.exports = createCoreController(currentModel, ({ strapi }) => ({
     }
   },
 
-  async sendEmail(formType, data, clientEmails = [], ctx = {}) {
+  async sendEmail(ctx = {}, formType, adminEmailFields, clientEmails = []) {
     try {
       for (const mailTemplate of formType?.emailTemplates) {
         const [emailTemplate] = await strapi.entityService.findMany(
@@ -111,21 +121,27 @@ module.exports = createCoreController(currentModel, ({ strapi }) => ({
         );
 
         if (emailTemplate?.id > 0) {
-          const htmlEmail = emailTemplate?.content;
-
-          const template = Handlebars.compile(htmlEmail);
-
-          let emailTemplateData = template(data);
+          const htmlEmailContent = emailTemplate?.content;
+          // const template = Handlebars.compile(htmlEmail);
+          // let emailTemplateData = template(data);
           let recieverEmails = clientEmails;
           if (emailTemplate?.isAdmin && emailTemplate?.recipientEmail) {
             recieverEmails = emailTemplate?.recipientEmail?.split(",");
+            let htmlContent = "";
+            adminEmailFields.forEach((item) => {
+              htmlContent += `<p>${item.label}: ${item.value}</p>`;
+            });
+            htmlEmailContent = htmlEmailContent.replace(
+              "#adminContent",
+              htmlContent
+            );
           }
 
           for (const toEmail of recieverEmails) {
             const emailObject = {
               to: toEmail,
               subject: emailTemplate.subject,
-              html: emailTemplateData,
+              html: htmlEmailContent,
             };
             //for mandrill
             if (emailTemplate?.senderEmail)

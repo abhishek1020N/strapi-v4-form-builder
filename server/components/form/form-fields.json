@@ -36,6 +36,10 @@
       "type": "boolean",
       "default": false
     },
+    "sendInAdminEmail": {
+      "type": "boolean",
+      "default": false
+    },
     "customErrorMessage": {
       "type": "string"
     },
