@@ -97,7 +97,9 @@ module.exports = createCoreController(currentModel, ({ strapi }) => ({
       if (res?.id) {
         adminEmailFields.push({
           label: "Submission Id",
-          value: res?.id,
+          value: `${
+            process?.env?.BACKEND_URL ?? "strapi-cms-domain"
+          }/admin/plugins/strapi-v4-form-builder/${res?.id}`,
         });
         await strapi
           .controller(currentModel)
