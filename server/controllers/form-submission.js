@@ -10,6 +10,7 @@ const formTypeModel = "plugin::strapi-v4-form-builder.form-type";
 const deepPopulate = require("../utils/populate").default;
 const _ = require("lodash");
 const { parseMultipartData } = require("@strapi/utils");
+const Handlebars = require("handlebars");
 
 module.exports = createCoreController(currentModel, ({ strapi }) => ({
   async getFormSubmissions(ctx) {
@@ -44,7 +45,7 @@ module.exports = createCoreController(currentModel, ({ strapi }) => ({
         uploadedFiles = files;
         submitData = data;
       } else {
-        submitData = ctx.request.body?.data;
+        submitData = ctx.request.body;
       }
       let formType = await strapi.entityService.findOne(
         formTypeModel,
@@ -89,7 +90,7 @@ module.exports = createCoreController(currentModel, ({ strapi }) => ({
       });
       if (res?.id) {
         await strapi
-          .service(currentModel)
+          .controller(currentModel)
           .sendEmail(formType, res, submitterEmail, ctx);
       }
       return res;
@@ -104,7 +105,7 @@ module.exports = createCoreController(currentModel, ({ strapi }) => ({
         const [emailTemplate] = await strapi.entityService.findMany(
           "plugin::strapi-v4-form-builder.form-email-template",
           {
-            filters: { id: mailTemplate, sendToUser: true },
+            filters: { id: mailTemplate?.id, sendToUser: true },
             locale: ctx.locale,
           }
         );

@@ -26,6 +26,14 @@ module.exports = {
         },
         type: "string",
       },
+      subject: {
+        pluginOptions: {
+          i18n: {
+            localized: true,
+          },
+        },
+        type: "string",
+      },
       content: {
         pluginOptions: {
           i18n: {
