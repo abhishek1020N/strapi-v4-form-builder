@@ -15,7 +15,7 @@ yarn add strapi-v4-form-builder
 npm i strapi-v4-form-builder
 ```
 
- - Add a new environment varaible CSR_SECRET_KEY in your strapi project. This will be a random hash string.
+ - Add a new environment variable CSR_SECRET_KEY in your strapi project. This will be a random hash string.
  - .env file should be something like below with `CSR_SECRET_KEY` added.
 ```
 # Database
