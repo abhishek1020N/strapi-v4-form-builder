@@ -86,7 +86,7 @@ module.exports = createCoreController(currentModel, ({ strapi }) => ({
         }
 
         //populate data for admin email
-        if (formTypeField.sendInAdminEmail) {
+        if (formTypeField?.sendInAdminEmail) {
           adminEmailFields.push({
             label: dataKey.label,
             value: dataKey.value,
