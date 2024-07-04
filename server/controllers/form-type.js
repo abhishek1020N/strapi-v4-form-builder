@@ -13,7 +13,10 @@ module.exports = createCoreController(currentModel, ({ strapi }) => ({
   async getFormTypeWithCSRFToken(ctx) {
     let entity = await strapi.entityService.findMany(currentModel, {
       ...ctx.query,
-      populate: { formFields: { populate: { selectOptions: true } } },
+      populate: {
+        formFields: { populate: { selectOptions: true } },
+        formRedirect: true,
+      },
     });
     const expiry =
       entity[0]?.formCSFRTokenExpiry > 0
