@@ -7,9 +7,10 @@ module.exports = {
       pluralName: "form-redirects",
       displayName: "Form Redirects",
     },
-    options: {
-      draftAndPublish: false,
-      comment: "",
+    pluginOptions: {
+      i18n: {
+        localized: true,
+      },
     },
     options: {
       draftAndPublish: true,
