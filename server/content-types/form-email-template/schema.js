@@ -9,7 +9,11 @@ module.exports = {
     },
     options: {
       draftAndPublish: true,
-      comment: "",
+    },
+    pluginOptions: {
+      i18n: {
+        localized: true,
+      },
     },
     attributes: {
       formTypes: {
@@ -40,7 +44,12 @@ module.exports = {
             localized: true,
           },
         },
-        type: "richtext",
+        type: "customField",
+        options: {
+          output: "HTML",
+          preset: "standard",
+        },
+        customField: "plugin::ckeditor.CKEditor",
       },
       senderEmail: {
         pluginOptions: {
