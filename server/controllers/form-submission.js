@@ -3,7 +3,7 @@
 /**
  *  controller
  */
-
+const he = require('he');
 const { createCoreController } = require("@strapi/strapi").factories;
 const currentModel = "plugin::strapi-v4-form-builder.form-submission";
 const formTypeModel = "plugin::strapi-v4-form-builder.form-type";
@@ -146,7 +146,7 @@ module.exports = createCoreController(currentModel, ({ strapi }) => ({
             const emailObject = {
               to: toEmail,
               subject: emailTemplate.subject,
-              html: htmlEmailContent,
+              html: he.decode(htmlEmailContent),
             };
             if (emailTemplate?.senderEmail)
               emailObject.from_email = emailTemplate?.senderEmail;
