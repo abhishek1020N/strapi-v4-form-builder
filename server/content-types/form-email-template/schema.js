@@ -76,7 +76,7 @@ module.exports = {
         },
         type: "string",
       },
-      sendToUser: {
+      enableEmail: {
         pluginOptions: {
           i18n: {
             localized: true,

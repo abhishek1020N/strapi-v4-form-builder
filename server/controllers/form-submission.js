@@ -119,7 +119,7 @@ module.exports = createCoreController(currentModel, ({ strapi }) => ({
         const [emailTemplate] = await strapi.entityService.findMany(
           "plugin::strapi-v4-form-builder.form-email-template",
           {
-            filters: { id: mailTemplate?.id, sendToUser: true },
+            filters: { id: mailTemplate?.id, enableEmail: true },
             locale: ctx.locale,
           }
         );

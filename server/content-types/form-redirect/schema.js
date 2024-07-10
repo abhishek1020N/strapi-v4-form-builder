@@ -64,6 +64,14 @@ module.exports = {
         type: "media",
         multiple: false,
       },
+      iframe: {
+        pluginOptions: {
+          i18n: {
+            localized: true,
+          },
+        },
+        type: "text",
+      },
       formType: {
         type: "relation",
         relation: "oneToOne",

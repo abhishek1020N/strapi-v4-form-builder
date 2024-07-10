@@ -52,6 +52,15 @@
     "placeholder": {
       "type": "string"
     },
+    "hideLabel": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "boolean",
+      "default": false
+    },
     "formOrder": {
       "pluginOptions": {
         "i18n": {
