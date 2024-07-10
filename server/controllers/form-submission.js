@@ -3,7 +3,7 @@
 /**
  *  controller
  */
-const he = require('he');
+const he = require("he");
 const { createCoreController } = require("@strapi/strapi").factories;
 const currentModel = "plugin::strapi-v4-form-builder.form-submission";
 const formTypeModel = "plugin::strapi-v4-form-builder.form-type";
@@ -126,8 +126,8 @@ module.exports = createCoreController(currentModel, ({ strapi }) => ({
 
         if (emailTemplate?.id > 0) {
           let htmlEmailContent = emailTemplate?.content;
-          // const template = Handlebars.compile(htmlEmail);
-          // let emailTemplateData = template(data);
+          htmlEmailContent = htmlEmailContent.replace("pre>", "div>");
+          htmlEmailContent = htmlEmailContent.replace("code>", "div>");
           let recieverEmails = clientEmails;
           //if template type is for admin and recipient email exist
           if (emailTemplate?.isAdmin && emailTemplate?.recipientEmail) {
@@ -136,6 +136,7 @@ module.exports = createCoreController(currentModel, ({ strapi }) => ({
             adminEmailFields.forEach((item) => {
               htmlContent += `<p>${item.label}: ${item.value}</p>`;
             });
+
             htmlEmailContent = htmlEmailContent.replace(
               "#adminContent",
               htmlContent
