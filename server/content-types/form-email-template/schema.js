@@ -66,6 +66,7 @@ module.exports = {
           },
         },
         type: "boolean",
+        default: false,
       },
       recipientEmail: {
         pluginOptions: {

@@ -31,8 +31,16 @@ module.exports = {
             localized: true,
           },
         },
-        type: "uid",
-        targetField: "formName",
+        pluginOptions: {
+          i18n: {
+            localized: true,
+          },
+        },
+        type: "customField",
+        options: {
+          targetField: "formName",
+        },
+        customField: "plugin::ab-custom-slug.ab-custom-slug",
       },
       formFields: {
         displayName: "Form Fields",
