@@ -56,6 +56,15 @@ module.exports = {
       formCSFRTokenExpiry: {
         type: "integer",
       },
+      useCatchaValidation: {
+        pluginOptions: {
+          i18n: {
+            localized: false,
+          },
+        },
+        type: "boolean",
+        default: false,
+      },
       formSubmissions: {
         type: "relation",
         relation: "oneToMany",

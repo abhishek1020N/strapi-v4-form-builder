@@ -1,7 +1,5 @@
 "use strict";
 
-const verify_token = require("./verify_token");
+// const verify_token = require("./verify_token");
 
-module.exports = {
-  verify_token,
-};
+module.exports = {};

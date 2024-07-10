@@ -43,9 +43,7 @@ module.exports = {
       method: "POST",
       path: "/submit-form",
       handler: "form-submission.submitForm",
-      config: {
-        policies: ["plugin::strapi-v4-form-builder.verify_token"],
-      },
+      config: {},
     },
   ],
 };

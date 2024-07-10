@@ -11,6 +11,8 @@ const deepPopulate = require("../utils/populate").default;
 const _ = require("lodash");
 const { parseMultipartData } = require("@strapi/utils");
 const Handlebars = require("handlebars");
+const { verifyCaptcha } = require("../utils/captcha");
+const { verifyCSRFToken } = require("../utils/verify_token");
 
 module.exports = createCoreController(currentModel, ({ strapi }) => ({
   async getFormSubmissions(ctx) {
@@ -57,6 +59,14 @@ module.exports = createCoreController(currentModel, ({ strapi }) => ({
           },
         }
       );
+      if (formType?.id) {
+        const validToken = formType?.useCatchaValidation
+          ? verifyCaptcha(ctx)
+          : verifyCSRFToken(ctx);
+        if (!validToken) {
+          throw new PolicyError("Token Invalid");
+        }
+      }
       let submitterEmail = [];
       for (const dataKey of submitData?.jsonSubmission) {
         const formTypeField = formType?.formFields?.find(
