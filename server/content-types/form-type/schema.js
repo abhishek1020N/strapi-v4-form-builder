@@ -56,14 +56,14 @@ module.exports = {
       formCSFRTokenExpiry: {
         type: "integer",
       },
-      useCatchaValidation: {
+      useCaptcha: {
         pluginOptions: {
           i18n: {
             localized: false,
           },
         },
         type: "boolean",
-        default: false,
+        default: true,
       },
       formSubmissions: {
         type: "relation",

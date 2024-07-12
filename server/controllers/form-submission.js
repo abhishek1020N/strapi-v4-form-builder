@@ -60,11 +60,11 @@ module.exports = createCoreController(currentModel, ({ strapi }) => ({
         }
       );
       if (formType?.id) {
-        const validToken = formType?.useCatchaValidation
+        const validToken = formType?.useCaptcha
           ? verifyCaptcha(ctx)
           : verifyCSRFToken(ctx);
         if (!validToken) {
-          throw new PolicyError("Token Invalid");
+          throw new PolicyError("Invalid Request, token not valid");
         }
       }
       let submitterEmail = [];
