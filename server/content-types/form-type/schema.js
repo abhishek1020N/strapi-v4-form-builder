@@ -31,15 +31,7 @@ module.exports = {
             localized: true,
           },
         },
-        pluginOptions: {
-          i18n: {
-            localized: true,
-          },
-        },
         type: "customField",
-        options: {
-          targetField: "formName",
-        },
         customField: "plugin::ab-custom-slug.ab-custom-slug",
       },
       formFields: {

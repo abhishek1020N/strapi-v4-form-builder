@@ -23,6 +23,9 @@
       "allowedTypes": ["images", "files"],
       "type": "media",
       "multiple": false
+    },
+    "iframe": {
+      "type": "text"
     }
   }
 }
