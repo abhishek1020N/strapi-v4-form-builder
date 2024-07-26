@@ -15,7 +15,7 @@ module.exports = createCoreController(currentModel, ({ strapi }) => ({
       ...ctx.query,
       populate: {
         formFields: { populate: { selectOptions: true } },
-        formRedirect: true,
+        formRedirect: { populate: { image: true, buttons: true } },
       },
     });
     const expiry =
