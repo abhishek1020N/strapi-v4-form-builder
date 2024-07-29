@@ -77,6 +77,22 @@
         }
       }
     },
+    "max": {
+      "type": "integer",
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      }
+    },
+    "min": {
+      "type": "integer",
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      }
+    },
     "selectOptions": {
       "displayName": "Select Options",
       "type": "component",
