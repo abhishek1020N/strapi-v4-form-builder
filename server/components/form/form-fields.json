@@ -93,6 +93,20 @@
         }
       }
     },
+    "width": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      },
+      "type": "enumeration",
+      "enum": [
+        "w-100%",
+        "w-50%",
+        "w-25%"
+      ],
+      "default": "w-100%"
+    },
     "selectOptions": {
       "displayName": "Select Options",
       "type": "component",
