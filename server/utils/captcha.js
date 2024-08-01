@@ -1,5 +1,5 @@
 const axios = require("axios").default;
-const { errors } = require("@strapi/utils");
+const { errors, parseMultipartData } = require("@strapi/utils");
 const { PolicyError } = errors;
 exports.verifyCaptcha = async (ctx) => {
   try {
