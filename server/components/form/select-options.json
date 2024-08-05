@@ -13,6 +13,9 @@
     "value": {
       "type": "string"
     },
+    "emailToOverride": {
+      "type": "string"
+    },
     "isDefault": {
       "type": "boolean",
       "default": false
