@@ -52,12 +52,19 @@
     "placeholder": {
       "type": "string"
     },
+    "relatedModel": {
+      "type": "string"
+    },
     "hideLabel": {
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
       },
+      "type": "boolean",
+      "default": false
+    },
+    "hideField": {
       "type": "boolean",
       "default": false
     },
@@ -100,11 +107,7 @@
         }
       },
       "type": "enumeration",
-      "enum": [
-        "w-100%",
-        "w-50%",
-        "w-25%"
-      ],
+      "enum": ["w-100%", "w-50%", "w-25%"],
       "default": "w-100%"
     },
     "selectOptions": {

@@ -36,6 +36,7 @@ CSR_SECRET_KEY="something#secret+123"
 
 - Create custom form fields from the Content Manager
 - Use the Form-Type collection to defince the form fields and form structure
+- Submissions can be viewed from editView of the form-submission collection.
 - Submissions can be viewed from the plugin's homepage.
 - Based on each Form-Type its corresponding submissions can be viewed.
 - Submitted attachments can be downloaded by CMS admin.
@@ -50,6 +51,8 @@ CSR_SECRET_KEY="something#secret+123"
 ![Alt text](assets/submissions.png)
 
 ![Alt text](assets/submissions-detail.png)
+
+![Alt text](assets/editView.png)
 
 
 <p align="center">

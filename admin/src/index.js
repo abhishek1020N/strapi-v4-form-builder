@@ -1,8 +1,9 @@
-import { prefixPluginTranslations } from '@strapi/helper-plugin';
-import pluginPkg from '../../package.json';
-import pluginId from './pluginId';
-import Initializer from './components/Initializer';
-import PluginIcon from './components/PluginIcon';
+import { prefixPluginTranslations } from "@strapi/helper-plugin";
+import pluginPkg from "../../package.json";
+import pluginId from "./pluginId";
+import Initializer from "./components/Initializer";
+import PluginIcon from "./components/PluginIcon";
+import ViewSubmissionButton from "./components/ViewSubmission";
 
 const displayName = pluginPkg.strapi.displayName;
 const name = pluginPkg.strapi.name;
@@ -17,7 +18,7 @@ export default {
         defaultMessage: displayName,
       },
       Component: async () => {
-        const component = await import('./pages/App');
+        const component = await import("./pages/App");
 
         return component;
       },
@@ -37,7 +38,12 @@ export default {
     });
   },
 
-  bootstrap(app) {},
+  bootstrap(app) {
+    app.injectContentManagerComponent("editView", "right-links", {
+      name: "ViewSubmissionButton",
+      Component: ViewSubmissionButton,
+    });
+  },
   async registerTrads({ locales }) {
     const importedTrads = await Promise.all(
       locales.map((locale) => {
