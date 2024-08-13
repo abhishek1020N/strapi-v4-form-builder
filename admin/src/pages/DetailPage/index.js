@@ -29,7 +29,7 @@ const DetailPage = () => {
   const urlParams = useParams();
   const { get } = useFetchClient();
   const [hiddenFieldData, setHiddenFieldData] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const submissionId = urlParams?.id;
 
   const params = qs.stringify({
