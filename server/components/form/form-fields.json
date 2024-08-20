@@ -43,6 +43,9 @@
     "customErrorMessage": {
       "type": "string"
     },
+    "initailValue": {
+      "type": "string"
+    },
     "submissionKey": {
       "type": "string"
     },
