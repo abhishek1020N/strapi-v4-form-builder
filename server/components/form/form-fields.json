@@ -27,7 +27,9 @@
         "hidden",
         "phone",
         "rating",
-        "multiselect"
+        "multiselect",
+        "country",
+        "region"
       ],
       "required": true,
       "default": "text"
