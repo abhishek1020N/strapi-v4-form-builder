@@ -29,7 +29,8 @@
         "rating",
         "multiselect",
         "country",
-        "region"
+        "region",
+        "terms"
       ],
       "required": true,
       "default": "text"
