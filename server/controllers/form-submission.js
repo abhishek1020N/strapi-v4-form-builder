@@ -42,6 +42,7 @@ module.exports = createCoreController(currentModel, ({ strapi }) => ({
       let uploadedFiles = [];
       const uploadService = strapi.plugin("upload").service("upload");
       let adminEmailFields = [];
+      let emailToOverride = null;
       if (ctx.is("multipart")) {
         const { data, files } = parseMultipartData(ctx);
         uploadedFiles = files;
@@ -95,6 +96,9 @@ module.exports = createCoreController(currentModel, ({ strapi }) => ({
           submitterEmail.push(dataKey.value);
         }
 
+        //check if email override exist
+        if(dataKey?.emailToOverride) emailToOverride = dataKey.emailToOverride;
+
         //populate data for admin email
         if (formTypeField?.sendInAdminEmail) {
           adminEmailFields.push({
@@ -115,7 +119,7 @@ module.exports = createCoreController(currentModel, ({ strapi }) => ({
         });
         await strapi
           .controller(currentModel)
-          .sendEmail(ctx, formType, adminEmailFields, submitterEmail);
+          .sendEmail(ctx, formType, adminEmailFields, submitterEmail,emailToOverride);
       }
       return res;
     } catch (error) {
@@ -123,7 +127,7 @@ module.exports = createCoreController(currentModel, ({ strapi }) => ({
     }
   },
 
-  async sendEmail(ctx = {}, formType, adminEmailFields, clientEmails = []) {
+  async sendEmail(ctx = {}, formType, adminEmailFields, clientEmails = [],emailToOverride=null) {
     try {
       for (const mailTemplate of formType?.emailTemplates) {
         const [emailTemplate] = await strapi.entityService.findMany(
@@ -142,6 +146,10 @@ module.exports = createCoreController(currentModel, ({ strapi }) => ({
           //if template type is for admin and recipient email exist
           if (emailTemplate?.isAdmin && emailTemplate?.recipientEmail) {
             recieverEmails = emailTemplate?.recipientEmail?.split(",");
+            //override email
+            if(emailToOverride)
+              recieverEmails = [emailToOverride];
+
             let htmlContent = "";
             adminEmailFields.forEach((item) => {
               htmlContent += `<p>${item.label}: ${item.value}</p>`;
