@@ -49,6 +49,9 @@
     "initailValue": {
       "type": "string"
     },
+    "prefill": {
+      "type": "string"
+    },
     "submissionKey": {
       "type": "string"
     },
