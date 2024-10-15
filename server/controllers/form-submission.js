@@ -97,7 +97,7 @@ module.exports = createCoreController(currentModel, ({ strapi }) => ({
         }
 
         //check if email override exist
-        if(dataKey?.emailToOverride) emailToOverride = dataKey.emailToOverride;
+        if (dataKey?.emailToOverride) emailToOverride = dataKey.emailToOverride;
 
         //populate data for admin email
         if (formTypeField?.sendInAdminEmail) {
@@ -110,7 +110,8 @@ module.exports = createCoreController(currentModel, ({ strapi }) => ({
       const res = await strapi.entityService.create(currentModel, {
         data: submitData,
       });
-      if (res?.id) {
+      const sendCustomMail = strapi.config.get("constants.SEND_CUSTOM_MAIL");
+      if (res?.id && !sendCustomMail) {
         adminEmailFields.push({
           label: "Submission Id",
           value: `${
@@ -119,7 +120,13 @@ module.exports = createCoreController(currentModel, ({ strapi }) => ({
         });
         await strapi
           .controller(currentModel)
-          .sendEmail(ctx, formType, adminEmailFields, submitterEmail,emailToOverride);
+          .sendEmail(
+            ctx,
+            formType,
+            adminEmailFields,
+            submitterEmail,
+            emailToOverride
+          );
       }
       return res;
     } catch (error) {
@@ -127,7 +134,13 @@ module.exports = createCoreController(currentModel, ({ strapi }) => ({
     }
   },
 
-  async sendEmail(ctx = {}, formType, adminEmailFields, clientEmails = [],emailToOverride=null) {
+  async sendEmail(
+    ctx = {},
+    formType,
+    adminEmailFields,
+    clientEmails = [],
+    emailToOverride = null
+  ) {
     try {
       for (const mailTemplate of formType?.emailTemplates) {
         const [emailTemplate] = await strapi.entityService.findMany(
@@ -147,8 +160,7 @@ module.exports = createCoreController(currentModel, ({ strapi }) => ({
           if (emailTemplate?.isAdmin && emailTemplate?.recipientEmail) {
             recieverEmails = emailTemplate?.recipientEmail?.split(",");
             //override email
-            if(emailToOverride)
-              recieverEmails = [emailToOverride];
+            if (emailToOverride) recieverEmails = [emailToOverride];
 
             let htmlContent = "";
             adminEmailFields.forEach((item) => {
