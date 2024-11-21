@@ -7,7 +7,6 @@ module.exports = {
       handler: "form-type.find",
       config: {
         policies: [],
-        auth: false,
       },
     },
     {
@@ -16,7 +15,6 @@ module.exports = {
       handler: "form-submission.find",
       config: {
         policies: [],
-        auth: false,
       },
     },
     {
@@ -25,7 +23,6 @@ module.exports = {
       handler: "form-submission.getFormSubmissions",
       config: {
         policies: [],
-        auth: false,
       },
     },
     {
@@ -34,7 +31,6 @@ module.exports = {
       handler: "form-submission.getAllFormSubmissions",
       config: {
         policies: [],
-        auth: false,
       },
     },
   ],
