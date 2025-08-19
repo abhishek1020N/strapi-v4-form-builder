@@ -10,7 +10,7 @@ import { Switch, Route } from 'react-router-dom';
 import { AnErrorOccurred } from '@strapi/helper-plugin';
 import pluginId from '../../pluginId';
 import HomePage from '../HomePage';
-import DetailPage from 'strapi-v4-form-builder/admin/src/pages/DetailPage';
+import DetailPage from '../DetailPage';
 
 const App = () => {
   return (

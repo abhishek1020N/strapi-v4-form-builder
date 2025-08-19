@@ -107,7 +107,7 @@ const HomePage = () => {
     (async () => {
       const {
         data: { data },
-      } = await get(`/strapi-v4-form-builder/get-all-form-submissions`);
+      } = await get(`/strapi-v4-form-builder/get-all-form-submissions?${formSubmissionParams}`);
       // console.log("submit-data:", data);
       setExportData(data);
     })();
