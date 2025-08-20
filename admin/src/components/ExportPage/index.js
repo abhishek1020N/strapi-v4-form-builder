@@ -11,7 +11,8 @@ const ExportToExcel = ({ data }) => {
       const jsonSubmission = item.attributes.jsonSubmission;
       const row = {};
       jsonSubmission.forEach((entry) => {
-        row[entry.key] = entry.value;
+        const header = entry.label || entry.key;
+        row[header] = entry.value;
         if (entry.fieldType == "upload") {
           let fileUrlArr = [];
           entry.files.forEach((file) => {
@@ -20,7 +21,7 @@ const ExportToExcel = ({ data }) => {
               : file.url;
             fileUrlArr.push(file.url);
           });
-          row[entry.key] = fileUrlArr?.join(",");
+          row[header] = fileUrlArr?.join(",");
         }
       });
       return row;

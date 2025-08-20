@@ -43,6 +43,7 @@ module.exports = createCoreController(currentModel, ({ strapi }) => ({
       const uploadService = strapi.plugin("upload").service("upload");
       let adminEmailFields = [];
       let emailToOverride = null;
+      const BACKEND_URL = strapi.config.get("constants.BACKEND_URL") || "";
       if (ctx.is("multipart")) {
         const { data, files } = parseMultipartData(ctx);
         uploadedFiles = files;
@@ -60,15 +61,29 @@ module.exports = createCoreController(currentModel, ({ strapi }) => ({
           },
         }
       );
-      if (formType?.id) {
-        const validToken = formType?.useCaptcha
-          ? verifyCaptcha(ctx)
-          : verifyCSRFToken(ctx);
+      if (formType?.id && formType?.useCaptcha) {
+        const validToken = verifyCaptcha(ctx);
         if (!validToken) {
-          throw new PolicyError("Invalid Request, token not valid");
+          throw new PolicyError("Invalid Captcha Token");
         }
       }
+      let destinationFolder = formType?.formID || "form-submissions";
       let submitterEmail = [];
+      let filepaths = [];
+      const folderService = strapi.plugins.upload.services.folder;
+      let strapiUploadFolder = await strapi
+        .query("plugin::upload.folder")
+        .findOne({
+          where: {
+            $or: [{ name: destinationFolder }, { path: destinationFolder }],
+          },
+        });
+      if (!strapiUploadFolder) {
+        await folderService.create({ name: destinationFolder });
+        strapiUploadFolder = await strapi
+          .query("plugin::upload.folder")
+          .findOne({ where: { name: destinationFolder } });
+      }
       for (const dataKey of submitData?.jsonSubmission) {
         const formTypeField = formType?.formFields?.find(
           (f) => f.submissionKey == dataKey.key
@@ -79,10 +94,14 @@ module.exports = createCoreController(currentModel, ({ strapi }) => ({
           fileList = fileList?.size > 0 ? [fileList] : fileList;
           for (const file of fileList) {
             const [uploadedFile] = await uploadService.upload({
-              data: {}, // additional data to pass
+              data: {
+                path: destinationFolder,
+                fileInfo: { folder: strapiUploadFolder.id },
+              }, // additional data to pass
               files: [file], // the actual file(s)
             });
             fileArr.push(uploadedFile);
+            filepaths.push(`${BACKEND_URL}${uploadedFile?.url}`);
           }
         }
         dataKey.label = formTypeField?.label ?? "";
@@ -92,6 +111,7 @@ module.exports = createCoreController(currentModel, ({ strapi }) => ({
         dataKey.formOrder = formTypeField?.formOrder ?? 0;
         dataKey.maxFiles = formTypeField?.maxFiles;
         dataKey.files = fileArr;
+        dataKey.value = dataKey.value ?? "";
         if (formTypeField?.fieldType === "email") {
           submitterEmail.push(dataKey.value);
         }
@@ -99,12 +119,21 @@ module.exports = createCoreController(currentModel, ({ strapi }) => ({
         //check if email override exist
         if (dataKey?.emailToOverride) emailToOverride = dataKey.emailToOverride;
 
-        //populate data for admin email
+         //populate data for admin email
         if (formTypeField?.sendInAdminEmail) {
-          adminEmailFields.push({
-            label: dataKey.label,
-            value: dataKey.value,
-          });
+          if (formTypeField?.fieldType === "upload") {
+            adminEmailFields.push({
+              label: dataKey.label,
+              value: filepaths?.length ? filepaths.join(", ") : "",
+              submissionKey: dataKey.key,
+            });
+          } else {
+            adminEmailFields.push({
+              label: dataKey.label,
+              value: dataKey.value ?? "",
+              submissionKey: dataKey.key,
+            });
+          }
         }
       }
       const res = await strapi.entityService.create(currentModel, {
@@ -115,7 +144,7 @@ module.exports = createCoreController(currentModel, ({ strapi }) => ({
         adminEmailFields.push({
           label: "Submission Id",
           value: `${
-            process?.env?.BACKEND_URL ?? "strapi-cms-domain"
+            BACKEND_URL ?? "strapi-cms-domain"
           }/admin/plugins/strapi-v4-form-builder/${res?.id}`,
         });
         await strapi
@@ -131,6 +160,7 @@ module.exports = createCoreController(currentModel, ({ strapi }) => ({
       return res;
     } catch (error) {
       console.log(error);
+      return { error: error };
     }
   },
 
@@ -142,6 +172,9 @@ module.exports = createCoreController(currentModel, ({ strapi }) => ({
     emailToOverride = null
   ) {
     try {
+      const first_name =
+        adminEmailFields.find((f) => f.submissionKey === "first_name")?.value ||
+        "";
       for (const mailTemplate of formType?.emailTemplates) {
         const [emailTemplate] = await strapi.entityService.findMany(
           "plugin::strapi-v4-form-builder.form-email-template",
@@ -172,18 +205,30 @@ module.exports = createCoreController(currentModel, ({ strapi }) => ({
               htmlContent
             );
           }
-
+          htmlEmailContent = htmlEmailContent.replace(
+            "@first_name",
+            first_name
+          );
           for (const toEmail of recieverEmails) {
             const emailObject = {
               to: toEmail,
               subject: emailTemplate.subject,
               html: he.decode(htmlEmailContent),
+              isAdmin: emailTemplate?.isAdmin ?? false,
             };
-            if (emailTemplate?.senderEmail)
+            if (emailTemplate?.senderEmail) {
               emailObject.from_email = emailTemplate?.senderEmail;
+            }
             console.log(`EMAIL_OBJECT:`, emailObject);
-            strapi.plugins["email"].services.email.send(emailObject);
-            console.log(`EMAIL_SENT: subject=${emailObject?.subject}`);
+            try {
+              await strapi.plugins["email"].services.email.send(emailObject);
+              console.log(`EMAIL_SENT: subject=${emailObject?.subject}`);
+            } catch (err) {
+              console.error(
+                `EMAIL_FAILED: to=${toEmail}, subject=${emailObject?.subject}`,
+                err
+              );
+            }
           }
         }
       }

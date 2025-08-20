@@ -105,13 +105,21 @@ const HomePage = () => {
 
   useEffect(() => {
     (async () => {
+      // get only filter and populate and not pagiantion
+      const formSubmissionParamsWithoutPagination = qs.stringify({
+        filters: {
+          formType: { formID: { $eq: formType } },
+        },
+        populate: "*",
+      });
       const {
         data: { data },
-      } = await get(`/strapi-v4-form-builder/get-all-form-submissions?${formSubmissionParams}`);
+      } = await get(`/strapi-v4-form-builder/get-all-form-submissions?${formSubmissionParamsWithoutPagination}`);
       // console.log("submit-data:", data);
       setExportData(data);
     })();
-  }, []);
+  }, [formType, get]);
+  
 
   return (
     <>
