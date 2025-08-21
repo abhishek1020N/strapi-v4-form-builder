@@ -3,7 +3,7 @@ import * as XLSX from "xlsx";
 import { Button } from "@strapi/design-system/Button";
 import Download from "@strapi/icons/Download";
 
-const ExportToExcel = ({ data }) => {
+const ExportToExcel = ({ data, form_name }) => {
   // console.log("data-export:", data);
   const handleExport = () => {
     const host = window.location.protocol + "//" + window.location.host;
@@ -35,7 +35,7 @@ const ExportToExcel = ({ data }) => {
     XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
 
     // Generate Excel file and trigger download
-    XLSX.writeFile(wb, `form_data_${new Date().getTime().toString()}.xlsx`);
+    XLSX.writeFile(wb, `${form_name}_form_data_${new Date().getTime().toString()}.xlsx`);
   };
 
   return (

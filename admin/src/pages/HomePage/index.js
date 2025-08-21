@@ -156,7 +156,7 @@ const HomePage = () => {
             )}
           </Box>
           {/* Export to Excel Button */}
-          {formType ? <ExportPage data={exportData} /> : null}
+          {formType ? <ExportPage data={exportData} form_name={formType} /> : null}
         </Flex>
 
         {formType ? (
